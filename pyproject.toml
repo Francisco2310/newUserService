@@ -1,0 +1,23 @@
+[project]
+name = "newuserservice"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Francisco2310",email = "74802078+Francisco2310@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flask-migrate (>=4.1.0,<5.0.0)",
+    "flask (>=3.1.0,<4.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)",
+    "psycopg2 (>=2.9.10,<3.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "newuserservice", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
