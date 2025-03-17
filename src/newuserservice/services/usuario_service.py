@@ -1,6 +1,7 @@
 from extensions import db
 from flask import jsonify
 from flask import request
+from sqlalchemy import desc
 
 def listar_usuarios():
     from models.usuario import usuario
@@ -13,6 +14,18 @@ def filtrar_usuarioid(id):
     id = int(id)
     usuario = usuario.query.filter_by(id=id).first()
     return jsonify(usuario.json())
+    
+
+def filtrar_usuariogeral(dados):
+    from models.usuario import usuario
+    usuarios = []
+    for campo, valor in dados.items():
+        if hasattr(usuario, campo):
+            query = usuario.query.filter(getattr(usuario, campo) == valor).order_by(desc(usuario.criado_em)).all()
+            usuarios.extend(query)
+        
+    usuarios_dict = [usuario.to_dict() for usuario in usuarios]
+    return jsonify(usuarios_dict)
 
 def criar_usuario(dados):
     from models.usuario import usuario

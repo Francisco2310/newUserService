@@ -16,3 +16,6 @@ class usuario(db.Model):
     self.senha = senha 
   def json(self):
     return {"nome":self.nome, "email":self.email, "senha":self.senha, "criado_em":self.criado_em}
+  def to_dict(self):
+    return {"nome":self.nome, "email":self.email, "senha":self.senha, "criado_em":self.criado_em}
+  
