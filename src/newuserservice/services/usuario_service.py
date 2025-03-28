@@ -14,7 +14,16 @@ def filtrar_usuarioid(id):
     id = int(id)
     usuario = usuario.query.filter_by(id=id).first()
     return jsonify(usuario.json())
-    
+
+def retornar_id(dados):
+    from models.usuario import usuario
+    usuarios = []
+    for campo, valor in dados.items():
+        if hasattr(usuario, campo):
+            query = usuario.query.filter(getattr(usuario, campo) == valor).all()
+            usuarios.extend(query)
+    return jsonify({"id": [usuario.id for usuario in usuarios]})
+
 
 def filtrar_usuariogeral(dados):
     from models.usuario import usuario

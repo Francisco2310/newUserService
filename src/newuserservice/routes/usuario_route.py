@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from services.usuario_service import criar_usuario , listar_usuarios, filtrar_usuarioid, filtrar_usuariogeral
+from services.usuario_service import criar_usuario , listar_usuarios, filtrar_usuarioid, filtrar_usuariogeral, request, retornar_id
 
 usuarios_bp = Blueprint("usuarios", __name__, url_prefix="/usuarios")
 
@@ -19,3 +19,7 @@ def user_set():
 @usuarios_bp.route("/search", methods=["GET"])
 def user_search():
     return filtrar_usuariogeral(request.args)
+
+@usuarios_bp.route("/getid", methods=["GET"])
+def user_getid():
+    return retornar_id(request.args)
