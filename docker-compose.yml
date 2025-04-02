@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: minha-api
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://usuario:senha@db:5432/meubanco"
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:latest
+    container_name: meu-banco
+    environment:
+      POSTGRES_USER: usuario
+      POSTGRES_PASSWORD: senha
+      POSTGRES_DB: meubanco
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
