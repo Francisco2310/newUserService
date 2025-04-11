@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from services.usuario_service import criar_usuario , listar_usuarios, filtrar_usuarioid, filtrar_usuariogeral, request, retornar_id
+from services.usuario_service import criar_usuario , listar_usuarios, filtrar_usuarioid, filtrar_usuariogeral, request, retornar_id, excluir_usuario, atualizar_usuario
 
 usuarios_bp = Blueprint("usuarios", __name__, url_prefix="/usuarios")
 
@@ -23,3 +23,14 @@ def user_search():
 @usuarios_bp.route("/getid", methods=["GET"])
 def user_getid():
     return retornar_id(request.args)
+
+@usuarios_bp.route("/deletar/<int:id>", methods=["DELETE"])
+def user_delete(id):
+    return excluir_usuario(id)
+
+@usuarios_bp.route("/atualizar/<int:id>", methods=["PATCH"])
+def user_update(id):
+    dados = request.get_json()
+    if not id:
+        return jsonify({"mensagem": "ID não fornecido"}), 400
+    return atualizar_usuario(id, dados)
